@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ event.title }} - Event Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="event-details">
+        <h1>{{ event.title }}</h1>
+        
+        <div class="event-meta">
+            <div class="meta-item">
+                <span class="meta-label">📅 Date & Time</span>
+                <span class="meta-value">{{ event.date.strftime('%B %d, %Y at %I:%M %p') }}</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">📍 Venue</span>
+                <span class="meta-value">{{ event.venue }}</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">🏢 Department</span>
+                <span class="meta-value">{{ event.department }}</span>
+            </div>
+        </div>
+
+        <div style="margin: 2rem 0;">
+            <h3 style="color: #667eea; margin-bottom: 1rem;">Event Description</h3>
+            <p style="line-height: 1.8; color: #666;">{{ event.description }}</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            {% if is_registered %}
+                <button class="btn btn-success" disabled>✓ Already Registered</button>
+                <p style="color: #27ae60; margin-top: 1rem;">You are registered for this event!</p>
+            {% else %}
+                <form method="POST" action="{{ url_for('register_event', event_id=event.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-primary">Register for Event</button>
+                </form>
+            {% endif %}
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary" style="margin-left: 1rem;">Back to Events</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

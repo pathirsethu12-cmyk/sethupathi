@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}My Registrations{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h2>📋 My Registrations</h2>
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Browse Events</a>
+        </div>
+
+        {% if registrations %}
+            <div class="events-grid">
+                {% for event in registrations %}
+                <div class="event-card">
+                    <div class="event-header">
+                        <h3>{{ event.title }}</h3>
+                        <span class="event-department">{{ event.department }}</span>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <span>📅</span>
+                                <span>{{ event.date.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                            </div>
+                            <div class="event-info-item">
+                                <span>📍</span>
+                                <span>{{ event.venue }}</span>
+                            </div>
+                            <div class="event-info-item">
+                                <span>✓</span>
+                                <span>Registered on {{ event.timestamp.strftime('%B %d, %Y') }}</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            {{ event.description[:100] }}{% if event.description|length > 100 %}...{% endif %}
+                        </p>
+                        <div class="event-actions">
+                            <a href="{{ url_for('event_details', event_id=event.id) }}" class="btn btn-primary btn-small">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <h3>No registrations yet</h3>
+                <p>You haven't registered for any events. Browse events and register now!</p>
+                <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary" style="margin-top: 1rem;">Browse Events</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

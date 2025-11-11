@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h2>📅 College Events</h2>
+            <div class="filter-section">
+                <label for="department-filter" style="font-weight: 600;">Filter by Department:</label>
+                <select id="department-filter" onchange="filterEvents(this.value)">
+                    <option value="All Departments" {% if current_filter == 'All Departments' %}selected{% endif %}>All Departments</option>
+                    <option value="CSE" {% if current_filter == 'CSE' %}selected{% endif %}>CSE</option>
+                    <option value="ECE" {% if current_filter == 'ECE' %}selected{% endif %}>ECE</option>
+                    <option value="EEE" {% if current_filter == 'EEE' %}selected{% endif %}>EEE</option>
+                    <option value="MECH" {% if current_filter == 'MECH' %}selected{% endif %}>MECH</option>
+                    <option value="CIVIL" {% if current_filter == 'CIVIL' %}selected{% endif %}>CIVIL</option>
+                    <option value="IT" {% if current_filter == 'IT' %}selected{% endif %}>IT</option>
+                    <option value="CHEM" {% if current_filter == 'CHEM' %}selected{% endif %}>CHEM</option>
+                    <option value="BIO" {% if current_filter == 'BIO' %}selected{% endif %}>BIO</option>
+                </select>
+            </div>
+        </div>
+
+        {% if events %}
+            <div class="events-grid">
+                {% for event in events %}
+                <div class="event-card" onclick="window.location.href='{{ url_for('event_details', event_id=event.id) }}'">
+                    <div class="event-header">
+                        <h3>{{ event.title }}</h3>
+                        <span class="event-department">{{ event.department }}</span>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <span>📅</span>
+                                <span>{{ event.date.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                            </div>
+                            <div class="event-info-item">
+                                <span>📍</span>
+                                <span>{{ event.venue }}</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            {{ event.description[:100] }}{% if event.description|length > 100 %}...{% endif %}
+                        </p>
+                        <div class="event-actions">
+                            <a href="{{ url_for('event_details', event_id=event.id) }}" class="btn btn-primary btn-small" onclick="event.stopPropagation()">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <h3>No events found</h3>
+                <p>There are no events available for the selected department.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function filterEvents(department) {
+    window.location.href = '{{ url_for("student_dashboard") }}?department=' + encodeURIComponent(department);
+}
+</script>
+{% endblock %}

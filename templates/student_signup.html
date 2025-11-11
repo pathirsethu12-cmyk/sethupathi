@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Student Sign Up{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2>👩‍🎓 Student Sign Up</h2>
+        <form method="POST" action="{{ url_for('student_signup') }}" onsubmit="return validateSignup()">
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">College Email *</label>
+                <input type="email" id="email" name="email" required placeholder="student@college.edu">
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department *</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="CSE">Computer Science & Engineering (CSE)</option>
+                    <option value="ECE">Electronics & Communication Engineering (ECE)</option>
+                    <option value="EEE">Electrical & Electronics Engineering (EEE)</option>
+                    <option value="MECH">Mechanical Engineering (MECH)</option>
+                    <option value="CIVIL">Civil Engineering (CIVIL)</option>
+                    <option value="IT">Information Technology (IT)</option>
+                    <option value="CHEM">Chemical Engineering (CHEM)</option>
+                    <option value="BIO">Biotechnology (BIO)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="batch">Batch *</label>
+                <input type="text" id="batch" name="batch" required placeholder="e.g., 2022-2026">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" name="password" required minlength="6">
+                <small style="color: #999;">Minimum 6 characters</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password *</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+        </form>
+
+        <p class="text-center mt-2">
+            Already have an account? <a href="{{ url_for('student_login') }}" style="color: #667eea;">Login here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

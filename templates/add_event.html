@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Add Event{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container" style="max-width: 700px;">
+        <h2>➕ Add New Event</h2>
+        <form method="POST" action="{{ url_for('add_event') }}">
+            <div class="form-group">
+                <label for="title">Event Title *</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description *</label>
+                <textarea id="description" name="description" required rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Date & Time *</label>
+                <input type="datetime-local" id="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="venue">Venue *</label>
+                <input type="text" id="venue" name="venue" required placeholder="e.g., Main Auditorium">
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department *</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="All Departments">All Departments</option>
+                    <option value="CSE">Computer Science & Engineering (CSE)</option>
+                    <option value="ECE">Electronics & Communication Engineering (ECE)</option>
+                    <option value="EEE">Electrical & Electronics Engineering (EEE)</option>
+                    <option value="MECH">Mechanical Engineering (MECH)</option>
+                    <option value="CIVIL">Civil Engineering (CIVIL)</option>
+                    <option value="IT">Information Technology (IT)</option>
+                    <option value="CHEM">Chemical Engineering (CHEM)</option>
+                    <option value="BIO">Biotechnology (BIO)</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">Add Event</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

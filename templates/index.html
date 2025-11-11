@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Home - College Event Management System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero">
+        <h1>🎓 College Event Management System</h1>
+        <p>Discover, Register, and Participate in College Events</p>
+        <div class="btn-group">
+            {% if not session.student_id and not session.admin_id %}
+                <a href="{{ url_for('student_signup') }}" class="btn btn-primary">Student Sign Up</a>
+                <a href="{{ url_for('student_login') }}" class="btn btn-secondary">Student Login</a>
+                <a href="{{ url_for('admin_login') }}" class="btn btn-secondary">Admin Login</a>
+            {% elif session.student_id %}
+                <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary">View Events</a>
+                <a href="{{ url_for('my_registrations') }}" class="btn btn-secondary">My Registrations</a>
+            {% elif session.admin_id %}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">Admin Dashboard</a>
+                <a href="{{ url_for('add_event') }}" class="btn btn-secondary">Add Event</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="dashboard mt-2">
+        <h2 class="text-center" style="color: #667eea; margin-bottom: 2rem;">About Our System</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">👩‍🎓</div>
+                <h3 style="color: #667eea; margin-bottom: 1rem;">For Students</h3>
+                <p style="color: #666;">Browse department-wise events, register for events, and track your registrations all in one place.</p>
+            </div>
+            <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Easy Registration</h3>
+                <p style="color: #666;">Simple and quick event registration process. View event details and register with just one click.</p>
+            </div>
+            <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🧑‍💼</div>
+                <h3 style="color: #667eea; margin-bottom: 1rem;">For Admins</h3>
+                <p style="color: #666;">Manage events efficiently, track registrations, and download participant lists for your events.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

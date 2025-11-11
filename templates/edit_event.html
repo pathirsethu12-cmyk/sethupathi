@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container" style="max-width: 700px;">
+        <h2>✏️ Edit Event</h2>
+        <form method="POST" action="{{ url_for('edit_event', event_id=event.id) }}">
+            <div class="form-group">
+                <label for="title">Event Title *</label>
+                <input type="text" id="title" name="title" value="{{ event.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description *</label>
+                <textarea id="description" name="description" required rows="5">{{ event.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Date & Time *</label>
+                <input type="datetime-local" id="date" name="date" value="{{ event.date.strftime('%Y-%m-%dT%H:%M') }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="venue">Venue *</label>
+                <input type="text" id="venue" name="venue" value="{{ event.venue }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department *</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="All Departments" {% if event.department == 'All Departments' %}selected{% endif %}>All Departments</option>
+                    <option value="CSE" {% if event.department == 'CSE' %}selected{% endif %}>Computer Science & Engineering (CSE)</option>
+                    <option value="ECE" {% if event.department == 'ECE' %}selected{% endif %}>Electronics & Communication Engineering (ECE)</option>
+                    <option value="EEE" {% if event.department == 'EEE' %}selected{% endif %}>Electrical & Electronics Engineering (EEE)</option>
+                    <option value="MECH" {% if event.department == 'MECH' %}selected{% endif %}>Mechanical Engineering (MECH)</option>
+                    <option value="CIVIL" {% if event.department == 'CIVIL' %}selected{% endif %}>Civil Engineering (CIVIL)</option>
+                    <option value="IT" {% if event.department == 'IT' %}selected{% endif %}>Information Technology (IT)</option>
+                    <option value="CHEM" {% if event.department == 'CHEM' %}selected{% endif %}>Chemical Engineering (CHEM)</option>
+                    <option value="BIO" {% if event.department == 'BIO' %}selected{% endif %}>Biotechnology (BIO)</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">Update Event</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

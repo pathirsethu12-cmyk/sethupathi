@@ -1,0 +1,111 @@
+========================================
+COLLEGE EVENT MANAGEMENT SYSTEM
+Quick Setup Guide
+========================================
+
+STEP 1: Install Dependencies
+-----------------------------
+pip install -r requirements.txt
+
+STEP 2: Setup MySQL Database
+-----------------------------
+1. Start MySQL server
+2. Run the schema file:
+   mysql -u root -p < database/schema.sql
+
+3. Update database credentials in app.py:
+   - Open app.py
+   - Find DB_CONFIG section
+   - Update 'user' and 'password' with your MySQL credentials
+
+STEP 3: Run the Application
+-----------------------------
+python app.py
+
+STEP 4: Access the Application
+-----------------------------
+Open your browser and go to:
+http://localhost:5000
+
+========================================
+DEFAULT CREDENTIALS
+========================================
+
+Admin Login:
+- Username: admin
+- Password: admin123
+
+Student Login:
+- Students must sign up first
+- No default student account
+
+========================================
+FEATURES
+========================================
+
+STUDENT PORTAL:
+✓ Sign up with college email
+✓ Browse events by department
+✓ Register for events
+✓ View registered events
+✓ Secure authentication
+
+ADMIN PORTAL:
+✓ Add/Edit/Delete events
+✓ View all registrations
+✓ Download CSV reports
+✓ Dashboard with statistics
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Problem: Database connection error
+Solution: Check MySQL is running and credentials are correct
+
+Problem: Module not found
+Solution: Run: pip install -r requirements.txt
+
+Problem: Port already in use
+Solution: Change port in app.py (line: app.run)
+
+========================================
+PROJECT STRUCTURE
+========================================
+
+college_event_system/
+├── app.py                  # Main application
+├── requirements.txt        # Dependencies
+├── README.md              # Full documentation
+├── SETUP_GUIDE.txt        # This file
+├── database/
+│   └── schema.sql         # Database setup
+├── static/
+│   ├── css/
+│   │   └── style.css      # Styling
+│   └── js/
+│       └── main.js        # JavaScript
+└── templates/             # HTML templates
+    ├── base.html
+    ├── index.html
+    ├── student_*.html
+    ├── admin_*.html
+    └── event_*.html
+
+========================================
+NEED HELP?
+========================================
+
+Check README.md for detailed documentation
+Review code comments in app.py
+Verify database schema in database/schema.sql
+
+========================================
+
+
+
+
+   "C:\xampp\mysql\bin\mysql.exe" -u root -p
+
+
+SOURCE D:/Newfolder/college_event_system/database/schema.sql;

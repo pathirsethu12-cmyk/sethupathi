@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Event Registrations - {{ event.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h2>📋 Registrations for "{{ event.title }}"</h2>
+            <div>
+                {% if registrations %}
+                    <a href="{{ url_for('download_registrations', event_id=event.id) }}" class="btn btn-success">📥 Download CSV</a>
+                {% endif %}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div>
+                    <strong style="color: #667eea;">Department:</strong>
+                    <p style="margin-top: 0.3rem;">{{ event.department }}</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Date:</strong>
+                    <p style="margin-top: 0.3rem;">{{ event.date.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Venue:</strong>
+                    <p style="margin-top: 0.3rem;">{{ event.venue }}</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Total Registrations:</strong>
+                    <p style="margin-top: 0.3rem;">{{ registrations|length }}</p>
+                </div>
+            </div>
+        </div>
+
+        {% if registrations %}
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Batch</th>
+                            <th>Registration Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reg in registrations %}
+                        <tr>
+                            <td><strong>{{ reg.name }}</strong></td>
+                            <td>{{ reg.email }}</td>
+                            <td>{{ reg.department }}</td>
+                            <td>{{ reg.batch }}</td>
+                            <td>{{ reg.timestamp.strftime('%b %d, %Y %I:%M %p') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <h3>No registrations yet</h3>
+                <p>No students have registered for this event yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
